@@ -39,4 +39,12 @@ describe('backend routes', () => {
       },
     ]);
   });
+
+  it('should log out', async () => {
+    await request.agent(app).get('/api/v1/github/login/callback').redirects(1);
+
+    const response = await request.agent(app).delete('/api/v1/github');
+
+    expect(response.body.message).toEqual('Signed out successfully!');
+  });
 });
